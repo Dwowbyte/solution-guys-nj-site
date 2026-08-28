@@ -1,41 +1,51 @@
-import os
 import json
+import os
 import secrets
-from datetime import timedelta
+from datetime import datetime, timedelta, timezone
 
-from flask import Flask, render_template, request, jsonify, session, redirect, url_for
-from werkzeug.security import generate_password_hash, check_password_hash
+from flask import Flask, jsonify, redirect, render_template, request, session, url_for
+from flask_sqlalchemy import SQLAlchemy
+from werkzeug.security import check_password_hash, generate_password_hash
 
 app = Flask(__name__)
 
 # -----------------------------
 # SECURITY CONFIG
 # -----------------------------
-# Never hardcode a secret key. Pull it from the environment; generate a
-# throwaway one for local dev so the app still runs, but this MUST be
-# set as a real env var before deploying (see README notes at bottom).
 app.secret_key = os.environ.get("FLASK_SECRET_KEY") or secrets.token_hex(32)
 app.config["PERMANENT_SESSION_LIFETIME"] = timedelta(hours=8)
 app.config["SESSION_COOKIE_HTTPONLY"] = True
 app.config["SESSION_COOKIE_SAMESITE"] = "Lax"
-# Defaults to True (secure cookies) since this is meant to run on HTTPS.
-# Only set SESSION_COOKIE_SECURE=false if you're testing locally over plain http.
-app.config["SESSION_COOKIE_SECURE"] = os.environ.get("SESSION_COOKIE_SECURE", "true").lower() == "true"
+app.config["SESSION_COOKIE_SECURE"] = os.environ.get(
+    "SESSION_COOKIE_SECURE", "true"
+).lower() == "true"
 
 # -----------------------------
-# ADMIN CONFIG (this is the only login the app has now — for you, not customers)
+# DATABASE CONFIG
+# -----------------------------
+# Render PostgreSQL provides DATABASE_URL. For local development only, the app
+# falls back to a local SQLite file so it can still be tested easily.
+database_url = os.environ.get("DATABASE_URL", "sqlite:///solution_guys.db")
+# Some providers still return postgres://; SQLAlchemy expects postgresql://.
+if database_url.startswith("postgres://"):
+    database_url = database_url.replace("postgres://", "postgresql://", 1)
+
+app.config["SQLALCHEMY_DATABASE_URI"] = database_url
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+app.config["SQLALCHEMY_ENGINE_OPTIONS"] = {"pool_pre_ping": True}
+
+db = SQLAlchemy(app)
+
+# -----------------------------
+# ADMIN CONFIG
 # -----------------------------
 ADMIN_EMAIL = os.environ.get("ADMIN_EMAIL", "admin@solutionguysnj.com")
 ADMIN_PASSWORD_HASH = os.environ.get("ADMIN_PASSWORD_HASH")
 if not ADMIN_PASSWORD_HASH:
-    # Dev-only fallback so the app boots locally without extra setup.
-    # Set a real ADMIN_PASSWORD_HASH before this ever goes live.
     ADMIN_PASSWORD_HASH = generate_password_hash("change-this-admin-password")
 
-REQUESTS_FILE = "requests.json"
-
 # -----------------------------
-# SERVICE CATALOG — matches the Solution Guys NJ site, no pricing
+# SERVICE CATALOG
 # -----------------------------
 SERVICES = {
     "lawn_landscaping": {"label": "Lawn Care & Landscaping", "code": "LN-01"},
@@ -46,36 +56,71 @@ SERVICES = {
 }
 
 PROPERTY_TYPES = ["Residential", "Commercial", "New construction"]
-
 STATUS_OPTIONS = ["New", "Contacted", "Scheduled", "Completed", "Not interested"]
+
+
+# -----------------------------
+# DATABASE MODEL
+# -----------------------------
+class ServiceRequest(db.Model):
+    __tablename__ = "service_requests"
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(160), nullable=False)
+    phone = db.Column(db.String(50), nullable=False)
+    email = db.Column(db.String(254), nullable=False, default="")
+    address = db.Column(db.String(300), nullable=False, default="")
+    property_type = db.Column(db.String(80), nullable=False, default="")
+    services_json = db.Column(db.Text, nullable=False)
+    notes = db.Column(db.Text, nullable=False, default="")
+    status = db.Column(db.String(40), nullable=False, default="New")
+    created_at = db.Column(
+        db.DateTime(timezone=True),
+        nullable=False,
+        default=lambda: datetime.now(timezone.utc),
+    )
+
+    @property
+    def services(self):
+        try:
+            value = json.loads(self.services_json)
+            return value if isinstance(value, list) else []
+        except (TypeError, json.JSONDecodeError):
+            return []
+
+    def to_dict(self):
+        created = self.created_at
+        if created and created.tzinfo is None:
+            created = created.replace(tzinfo=timezone.utc)
+        return {
+            "id": self.id,
+            "name": self.name,
+            "phone": self.phone,
+            "email": self.email,
+            "address": self.address,
+            "property_type": self.property_type,
+            "services": self.services,
+            "notes": self.notes,
+            "status": self.status,
+            "created_at": created.isoformat(timespec="seconds") if created else "",
+        }
+
+
+# Create tables automatically at app startup.
+with app.app_context():
+    db.create_all()
 
 
 # -----------------------------
 # HELPERS
 # -----------------------------
-def load_requests():
-    if not os.path.exists(REQUESTS_FILE):
-        return []
-    with open(REQUESTS_FILE, "r") as file:
-        try:
-            return json.load(file)
-        except json.JSONDecodeError:
-            return []
-
-
-def save_requests(items):
-    with open(REQUESTS_FILE, "w") as file:
-        json.dump(items, file, indent=4)
-
-
-def generate_id(items):
-    if not items:
-        return 1
-    return max(item.get("id", 0) for item in items) + 1
-
-
 def is_admin():
     return session.get("is_admin") is True
+
+
+def request_to_view(item):
+    """Return a plain dict so the existing Jinja template keeps working."""
+    return item.to_dict()
 
 
 # -----------------------------
@@ -93,8 +138,7 @@ def thank_you():
 
 @app.route("/service-request", methods=["POST"])
 def service_request():
-    """Handles the 'Get a Quote' form. No pricing, no payment —
-    this just logs the request so the team can call the customer."""
+    """Receive a quote request and store it safely in the database."""
     data = request.get_json(silent=True)
     if not data:
         return jsonify({"error": "Missing request data"}), 400
@@ -117,20 +161,18 @@ def service_request():
     if not valid_services:
         return jsonify({"error": "No valid services selected"}), 400
 
-    requests_list = load_requests()
-    requests_list.append({
-        "id": generate_id(requests_list),
-        "name": name,
-        "phone": phone,
-        "email": email,
-        "address": address,
-        "property_type": property_type,
-        "services": valid_services,
-        "notes": notes,
-        "status": "New",
-        "created_at": __import__("datetime").datetime.now().isoformat(timespec="seconds"),
-    })
-    save_requests(requests_list)
+    item = ServiceRequest(
+        name=name,
+        phone=phone,
+        email=email,
+        address=address,
+        property_type=property_type,
+        services_json=json.dumps(valid_services),
+        notes=notes,
+        status="New",
+    )
+    db.session.add(item)
+    db.session.commit()
 
     return jsonify({"message": "Request received", "redirect": "/thank-you"})
 
@@ -166,15 +208,15 @@ def admin_logout():
 
 
 # -----------------------------
-# ADMIN DASHBOARD — where you see and manage incoming requests
+# ADMIN DASHBOARD
 # -----------------------------
 @app.route("/admin-dashboard")
 def admin_dashboard():
     if not is_admin():
         return redirect(url_for("admin_login"))
 
-    requests_list = load_requests()
-    requests_list.sort(key=lambda r: r.get("id", 0), reverse=True)
+    rows = ServiceRequest.query.order_by(ServiceRequest.id.desc()).all()
+    requests_list = [request_to_view(row) for row in rows]
 
     return render_template(
         "admin_dashboard.html",
@@ -197,14 +239,13 @@ def update_request_status(request_id):
     if new_status not in STATUS_OPTIONS:
         return jsonify({"error": "Invalid status"}), 400
 
-    requests_list = load_requests()
-    for item in requests_list:
-        if item.get("id") == request_id:
-            item["status"] = new_status
-            save_requests(requests_list)
-            return jsonify({"message": "Status updated"})
+    item = db.session.get(ServiceRequest, request_id)
+    if not item:
+        return jsonify({"error": "Request not found"}), 404
 
-    return jsonify({"error": "Request not found"}), 404
+    item.status = new_status
+    db.session.commit()
+    return jsonify({"message": "Status updated"})
 
 
 @app.route("/admin/requests/<int:request_id>", methods=["DELETE"])
@@ -212,24 +253,33 @@ def delete_request(request_id):
     if not is_admin():
         return jsonify({"error": "Unauthorized"}), 403
 
-    requests_list = load_requests()
-    filtered = [r for r in requests_list if r.get("id") != request_id]
-
-    if len(filtered) == len(requests_list):
+    item = db.session.get(ServiceRequest, request_id)
+    if not item:
         return jsonify({"error": "Request not found"}), 404
 
-    save_requests(filtered)
+    db.session.delete(item)
+    db.session.commit()
     return jsonify({"message": "Request deleted"})
 
 
 # -----------------------------
-# JSON API (admin-only — customer data lives here)
+# JSON API (ADMIN ONLY)
 # -----------------------------
 @app.route("/api/requests", methods=["GET"])
 def get_requests():
     if not is_admin():
         return jsonify({"error": "Unauthorized"}), 403
-    return jsonify(load_requests())
+
+    rows = ServiceRequest.query.order_by(ServiceRequest.id.desc()).all()
+    return jsonify([row.to_dict() for row in rows])
+
+
+# -----------------------------
+# HEALTH CHECK
+# -----------------------------
+@app.route("/health")
+def health():
+    return jsonify({"status": "ok"})
 
 
 # -----------------------------
