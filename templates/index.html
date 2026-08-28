@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Solution Guys NJ — Landscaping, Junk Removal &amp; Janitorial | New Jersey</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0B0D0A;
+    --paper:#F3EFE1;
+    --paper-dim:#E9E3D0;
+    --gold:#D9A82C;
+    --route:#1F5C3B;
+    --rust:#164A30;
+    --line:#CFC6AE;
+    --green-ok:#1F5C3B;
+    --safety:#D9A82C;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Inter',sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,.disp{
+    font-family:'Oswald',sans-serif;
+    text-transform:uppercase;
+    letter-spacing:0.02em;
+    margin:0;
+  }
+  .mono{font-family:'IBM Plex Mono',monospace;}
+  a{color:inherit;text-decoration:none;}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 28px;}
+  .paper-tex{
+    background-image:
+      repeating-linear-gradient(0deg, rgba(27,29,26,0.025) 0px, rgba(27,29,26,0.025) 1px, transparent 1px, transparent 3px);
+  }
+  .topbar{
+    position:sticky; top:0; z-index:50;
+    background:var(--ink); color:var(--paper);
+    border-bottom:3px solid var(--safety);
+  }
+  .topbar-inner{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:14px 28px; max-width:1120px; margin:0 auto; gap:16px;
+  }
+  .brand{display:flex; align-items:center; gap:10px;}
+  .brand-mark{
+    width:42px;height:42px; object-fit:cover; border-radius:50%;
+    border:2px solid var(--gold); flex-shrink:0; background:#000;
+  }
+  .brand-name{font-family:'Oswald';font-weight:600;font-size:18px;letter-spacing:0.03em;text-transform:uppercase;}
+  .brand-sub{font-family:'IBM Plex Mono';font-size:10px;color:var(--safety);letter-spacing:0.08em;}
+  nav.tabs{display:flex; gap:2px;}
+  nav.tabs a{
+    font-family:'IBM Plex Mono'; font-size:11px; letter-spacing:0.05em;
+    padding:8px 12px; color:#C9C7BE; border-left:1px solid #33362f;
+    text-transform:uppercase; transition:color .15s, background .15s;
+  }
+  nav.tabs a:hover{color:var(--safety); background:#242621;}
+  .call-btn{
+    font-family:'IBM Plex Mono'; font-size:11px; font-weight:600;
+    background:var(--safety); color:var(--ink); padding:9px 14px;
+    letter-spacing:0.04em; white-space:nowrap; border:none; cursor:pointer;
+  }
+  @media(max-width:860px){ nav.tabs{display:none;} }
+
+  .hero{padding:56px 0 40px;}
+  .ticket{ background:var(--paper); border:2px solid var(--ink); position:relative; }
+  .ticket::before{ content:""; position:absolute; inset:6px; border:1px dashed var(--line); pointer-events:none; }
+  .ticket-head{
+    display:flex; justify-content:space-between; align-items:flex-start;
+    padding:22px 26px 18px; border-bottom:2px solid var(--ink); flex-wrap:wrap; gap:14px;
+  }
+  .ticket-head .num{font-family:'IBM Plex Mono'; font-size:12px; color:var(--route); letter-spacing:0.05em;}
+  .ticket-title{font-size:clamp(34px,6vw,64px); line-height:0.98; margin-top:6px;}
+  .ticket-title em{font-style:normal; color:var(--rust);}
+  .status-stamp{
+    border:3px solid var(--green-ok); color:var(--green-ok);
+    font-family:'Oswald'; font-weight:700; font-size:14px;
+    padding:6px 14px; transform:rotate(6deg); letter-spacing:0.08em; align-self:center;
+  }
+  .ticket-body{padding:26px;}
+  .ticket-desc{font-size:17px; line-height:1.55; max-width:640px; color:#3a3c36;}
+  .ticket-desc strong{color:var(--ink);}
+  .checklist{ margin-top:26px; display:grid; grid-template-columns:repeat(3,1fr); gap:0; border-top:1px solid var(--line); }
+  .checklist a{
+    display:flex; align-items:center; gap:10px; padding:16px 8px 16px 0;
+    border-right:1px solid var(--line); font-family:'IBM Plex Mono'; font-size:12.5px; letter-spacing:0.03em; color:var(--ink);
+  }
+  .checklist a:last-child{border-right:none;}
+  .checklist .box{ width:16px;height:16px; border:2px solid var(--ink); flex-shrink:0; display:flex; align-items:center; justify-content:center; }
+  .checklist .box::after{content:"✓"; font-size:11px; font-weight:700; color:var(--green-ok);}
+  @media(max-width:700px){ .checklist{grid-template-columns:1fr;} .checklist a{border-right:none; border-bottom:1px solid var(--line);} }
+
+  .service{padding:64px 0; border-top:2px solid var(--ink);}
+  .service-code-row{display:flex; align-items:baseline; gap:14px; margin-bottom:8px;}
+  .service-code{ font-family:'IBM Plex Mono'; font-size:13px; font-weight:600; background:var(--ink); color:var(--paper); padding:3px 9px; }
+  .service-tag{font-family:'IBM Plex Mono'; font-size:12px; color:var(--route); letter-spacing:0.05em;}
+  .service h2{font-size:clamp(28px,4.4vw,44px); margin-bottom:18px;}
+  .service-grid{display:grid; grid-template-columns:1.1fr 1fr; gap:48px; align-items:start;}
+  @media(max-width:800px){ .service-grid{grid-template-columns:1fr;} }
+  .service-copy p{font-size:16px; line-height:1.65; color:#3a3c36; max-width:520px;}
+  .line-items{list-style:none; padding:0; margin:22px 0 0; display:grid; gap:10px;}
+  .line-items li{display:flex; gap:12px; align-items:flex-start; font-size:14.5px; padding-bottom:10px; border-bottom:1px solid var(--line);}
+  .line-items li .n{font-family:'IBM Plex Mono'; font-size:12px; color:var(--rust); flex-shrink:0; padding-top:1px;}
+  .panel{background:var(--ink); color:var(--paper); padding:26px 24px;}
+  .panel .panel-label{font-family:'IBM Plex Mono'; font-size:11px; color:var(--safety); letter-spacing:0.08em; text-transform:uppercase;}
+  .panel h3{font-size:20px; margin-top:10px; color:var(--paper);}
+  .panel p{font-size:14px; line-height:1.6; color:#C9C7BE; margin-top:10px;}
+  .panel .stat-row{display:flex; gap:22px; margin-top:18px; flex-wrap:wrap;}
+  .panel .stat{font-family:'IBM Plex Mono';}
+  .panel .stat b{display:block; font-size:22px; color:var(--safety);}
+  .panel .stat span{font-size:10.5px; color:#9a988e; letter-spacing:0.04em;}
+
+  .subgrid{display:grid; grid-template-columns:repeat(3,1fr); gap:0; margin-top:26px; border-top:2px solid var(--ink);}
+  .subcard{border-right:2px solid var(--ink); border-bottom:2px solid var(--ink); padding:24px 22px; position:relative;}
+  .subcard:last-child{border-right:2px solid var(--ink);}
+  .subcard .sub-id{font-family:'IBM Plex Mono'; font-size:11px; color:var(--route); letter-spacing:0.05em;}
+  .subcard h4{font-family:'Oswald'; font-size:19px; text-transform:uppercase; margin:8px 0 10px;}
+  .subcard p{font-size:13.5px; line-height:1.55; color:#3a3c36; margin:0;}
+  .subcard .tab{ position:absolute; top:-2px; right:-2px; background:var(--gold); color:var(--ink); font-family:'IBM Plex Mono'; font-size:10px; font-weight:600; padding:3px 8px; }
+  @media(max-width:780px){ .subgrid{grid-template-columns:1fr;} .subcard{border-right:2px solid var(--ink);} }
+
+  .strip{background:var(--route); color:var(--paper); padding:22px 0;}
+  .strip .wrap{display:flex; gap:32px; flex-wrap:wrap; justify-content:space-between; align-items:center;}
+  .strip .item{font-family:'IBM Plex Mono'; font-size:12.5px; letter-spacing:0.03em; display:flex; align-items:center; gap:8px;}
+  .strip .item::before{content:"—"; color:var(--safety);}
+
+  .quote{padding:70px 0; border-top:2px solid var(--ink);}
+  .quote-grid{display:grid; grid-template-columns:0.9fr 1.1fr; gap:52px;}
+  @media(max-width:800px){ .quote-grid{grid-template-columns:1fr;} }
+  .quote h2{font-size:clamp(28px,4.4vw,44px);}
+  .quote p.lead{font-size:15.5px; line-height:1.6; color:#3a3c36; max-width:420px; margin-top:14px;}
+  .form-ticket{border:2px solid var(--ink); padding:26px;}
+  .form-row{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:14px;}
+  @media(max-width:520px){ .form-row{grid-template-columns:1fr;} }
+  label{display:block; font-family:'IBM Plex Mono'; font-size:10.5px; text-transform:uppercase; letter-spacing:0.06em; color:var(--route); margin-bottom:5px;}
+  input, select, textarea{
+    width:100%; border:none; border-bottom:2px solid var(--ink);
+    background:transparent; padding:9px 2px; font-family:'Inter'; font-size:14.5px; color:var(--ink);
+  }
+  input:focus, select:focus, textarea:focus{outline:none; border-bottom-color:var(--rust);}
+  .chk-row{display:flex; gap:18px; flex-wrap:wrap; margin:18px 0;}
+  .chk-item{display:flex; align-items:center; gap:8px; font-family:'IBM Plex Mono'; font-size:12px;}
+  .chk-item input[type="checkbox"]{width:15px; height:15px; accent-color:var(--rust);}
+  .submit-btn{
+    margin-top:8px; width:100%; background:var(--ink); color:var(--paper);
+    border:none; padding:14px; font-family:'Oswald'; font-weight:600; font-size:15px;
+    text-transform:uppercase; letter-spacing:0.05em; cursor:pointer;
+  }
+  .submit-btn:hover{background:var(--rust);}
+  .submit-btn:disabled{opacity:0.6; cursor:not-allowed;}
+  .form-note{font-family:'IBM Plex Mono'; font-size:10.5px; color:#8a8878; margin-top:10px;}
+  .form-error{font-family:'IBM Plex Mono'; font-size:12px; color:#a33; margin-top:10px; display:none;}
+
+  footer{background:var(--ink); color:var(--paper); padding:36px 0 24px; border-top:3px solid var(--safety);}
+  footer .wrap{display:flex; justify-content:space-between; flex-wrap:wrap; gap:20px;}
+  footer .f-brand{font-family:'Oswald'; font-size:16px; text-transform:uppercase;}
+  footer .f-meta{font-family:'IBM Plex Mono'; font-size:11px; color:#9a988e; margin-top:6px;}
+  footer .f-links{display:flex; gap:18px; font-family:'IBM Plex Mono'; font-size:11px; color:#C9C7BE;}
+</style>
+</head>
+<body class="paper-tex">
+
+  <div class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <img src="{{ url_for('static', filename='logo.jpg') }}" alt="Solution Guys NJ logo" class="brand-mark">
+        <div>
+          <div class="brand-name">Solution Guys NJ</div>
+          <div class="brand-sub">NEW JERSEY · LICENSED · INSURED</div>
+        </div>
+      </div>
+      <nav class="tabs">
+        <a href="#lawn">Lawn &amp; Landscape</a>
+        <a href="#junk">Junk Removal</a>
+        <a href="#janitorial">Janitorial</a>
+        <a href="#quote">Get a Quote</a>
+      </nav>
+      <a href="tel:+16098456108" class="call-btn">Call (609) 845-6108</a>
+    </div>
+  </div>
+
+  <section class="hero">
+    <div class="wrap">
+      <div class="ticket">
+        <div class="ticket-head">
+          <div>
+            <div class="num">WORK ORDER № SG-0001 · SERVING NEW JERSEY</div>
+            <h1 class="ticket-title">One crew.<br><em>Every</em> job on the list.</h1>
+          </div>
+          <div class="status-stamp">ACCEPTING WORK</div>
+        </div>
+        <div class="ticket-body">
+          <p class="ticket-desc">Solution Guys NJ handles the outside, the overflow, and the clean-up — <strong>lawn care and landscaping, junk removal, and full janitorial service</strong> — so you're not juggling four different vendors for one property.</p>
+          <div class="checklist">
+            <a href="#lawn"><span class="box"></span> Lawn &amp; Landscaping</a>
+            <a href="#junk"><span class="box"></span> Junk Removal</a>
+            <a href="#janitorial"><span class="box"></span> Janitorial — 3 divisions</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="strip">
+    <div class="wrap">
+      <div class="item">Same-week scheduling</div>
+      <div class="item">Residential + commercial</div>
+      <div class="item">We call you back with pricing</div>
+      <div class="item">Recurring or one-time</div>
+    </div>
+  </div>
+
+  <section class="service" id="lawn">
+    <div class="wrap">
+      <div class="service-code-row">
+        <span class="service-code">LN-01</span>
+        <span class="service-tag">DIVISION 01 / GROUNDS</span>
+      </div>
+      <h2>Landscaping &amp; Lawn Care</h2>
+      <div class="service-grid">
+        <div class="service-copy">
+          <p>Weekly mowing keeps a property looking managed. Seasonal work keeps it healthy. We run both on the same schedule so nothing falls through the cracks between visits.</p>
+          <ul class="line-items">
+            <li><span class="n">01</span> Mowing, edging &amp; trimming — weekly or bi-weekly routes</li>
+            <li><span class="n">02</span> Mulching, bed maintenance &amp; weed control</li>
+            <li><span class="n">03</span> Spring clean-up and fall leaf removal</li>
+            <li><span class="n">04</span> Fertilization &amp; seasonal treatment programs</li>
+            <li><span class="n">05</span> Hedge trimming and small tree pruning</li>
+          </ul>
+        </div>
+        <div class="panel">
+          <div class="panel-label">Best for</div>
+          <h3>HOAs, rental portfolios &amp; homeowners</h3>
+          <p>Set a recurring route once and we keep the property presentation-ready without repeat calls.</p>
+          <div class="stat-row">
+            <div class="stat"><b>52</b><span>ROUTES / YEAR AVAILABLE</span></div>
+            <div class="stat"><b>24H</b><span>CALLBACK TURNAROUND</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="service" id="junk">
+    <div class="wrap">
+      <div class="service-code-row">
+        <span class="service-code">JR-02</span>
+        <span class="service-tag">DIVISION 02 / HAUL-OUT</span>
+      </div>
+      <h2>Junk Removal</h2>
+      <div class="service-grid">
+        <div class="service-copy">
+          <p>We load it, haul it, and sort it — furniture, appliances, yard debris, construction scrap, or a full property clean-out. You point, we carry.</p>
+          <ul class="line-items">
+            <li><span class="n">01</span> Furniture &amp; appliance removal</li>
+            <li><span class="n">02</span> Garage, attic &amp; basement clean-outs</li>
+            <li><span class="n">03</span> Yard waste &amp; brush hauling</li>
+            <li><span class="n">04</span> Construction debris pickup</li>
+            <li><span class="n">05</span> Eviction &amp; foreclosure clean-outs</li>
+          </ul>
+        </div>
+        <div class="panel">
+          <div class="panel-label">Best for</div>
+          <h3>Landlords, movers &amp; renovators</h3>
+          <p>We quote on-site once we see the load — you only pay for the truck space you actually use.</p>
+          <div class="stat-row">
+            <div class="stat"><b>SAME</b><span>DAY LOADS AVAILABLE</span></div>
+            <div class="stat"><b>100%</b><span>DONATE/RECYCLE SORTED</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="service" id="janitorial">
+    <div class="wrap">
+      <div class="service-code-row">
+        <span class="service-code">JS-03</span>
+        <span class="service-tag">DIVISION 03 / INTERIOR</span>
+      </div>
+      <h2>Janitorial Services</h2>
+      <div class="service-copy">
+        <p>Three separate divisions under one janitorial line — each staffed and equipped differently, because an office floor, a move-out clean, and a construction site don't need the same crew.</p>
+      </div>
+
+      <div class="subgrid">
+        <div class="subcard">
+          <div class="tab">JS-03A</div>
+          <div class="sub-id">COMMERCIAL</div>
+          <h4>Commercial Cleaning</h4>
+          <p>Nightly, weekly, or custom-schedule cleaning for offices, retail floors, and shared facilities — trash, restrooms, floors, and common areas kept audit-ready.</p>
+        </div>
+        <div class="subcard">
+          <div class="tab">JS-03B</div>
+          <div class="sub-id">RESIDENTIAL</div>
+          <h4>Residential Cleaning</h4>
+          <p>Recurring home cleaning, move-in/move-out service, and deep cleans — kitchens, bathrooms, and living spaces detailed top to bottom.</p>
+        </div>
+        <div class="subcard">
+          <div class="tab">JS-03C</div>
+          <div class="sub-id">POST-BUILD</div>
+          <h4>Post-Construction Clean-Up</h4>
+          <p>Dust, debris, and finish-work residue cleared after the trades leave — rough clean, final clean, and touch-up passes before handoff.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="quote" id="quote">
+    <div class="wrap">
+      <div class="quote-grid">
+        <div>
+          <div class="service-tag">START A JOB TICKET</div>
+          <h2>Get a quote</h2>
+          <p class="lead">Tell us what the property needs. We'll call you with pricing and the next available date — usually within one business day. Prefer to talk now? <a href="tel:+16098456108"><strong>(609) 845-6108</strong></a>.</p>
+        </div>
+        <form class="form-ticket" id="quote-form">
+          <div class="form-row">
+            <div>
+              <label for="name">Name</label>
+              <input id="name" name="name" type="text" placeholder="Jordan Reyes" required>
+            </div>
+            <div>
+              <label for="phone">Phone</label>
+              <input id="phone" name="phone" type="tel" placeholder="(555) 000-0000" required>
+            </div>
+          </div>
+          <div class="form-row">
+            <div>
+              <label for="email">Email (optional)</label>
+              <input id="email" name="email" type="email" placeholder="you@email.com">
+            </div>
+            <div>
+              <label for="type">Property type</label>
+              <select id="type" name="property_type">
+                <option>Residential</option>
+                <option>Commercial</option>
+                <option>New construction</option>
+              </select>
+            </div>
+          </div>
+          <label for="address">Property address</label>
+          <input id="address" name="address" type="text" placeholder="Street, City, NJ" style="margin-bottom:14px;">
+
+          <label>Service(s) needed</label>
+          <div class="chk-row">
+            {% for key, service in services.items() %}
+            <label class="chk-item"><input type="checkbox" name="services" value="{{ key }}"> {{ service.label }}</label>
+            {% endfor %}
+          </div>
+
+          <label for="notes">Job notes</label>
+          <textarea id="notes" name="notes" rows="3" placeholder="Size of area, timeline, anything we should know..."></textarea>
+
+          <button class="submit-btn" type="submit" id="submit-btn">Submit request →</button>
+          <div class="form-error" id="form-error"></div>
+          <div class="form-note">// We'll call or email you back with pricing — no payment is collected here.</div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <div>
+        <div class="f-brand">Solution Guys NJ</div>
+        <div class="f-meta">Lawn Care &amp; Landscaping · Junk Removal · Janitorial (Commercial / Residential / Post-Construction)</div>
+        <div class="f-meta"><a href="tel:+16098456108">Call: (609) 845-6108</a></div>
+      </div>
+      <div class="f-links">
+        <a href="#lawn">Lawn &amp; Landscape</a>
+        <a href="#junk">Junk Removal</a>
+        <a href="#janitorial">Janitorial</a>
+        <a href="#quote">Get a Quote</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const form = document.getElementById('quote-form');
+    const submitBtn = document.getElementById('submit-btn');
+    const errorBox = document.getElementById('form-error');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      errorBox.style.display = 'none';
+
+      const formData = new FormData(form);
+      const services = formData.getAll('services');
+
+      const payload = {
+        name: formData.get('name'),
+        phone: formData.get('phone'),
+        email: formData.get('email'),
+        address: formData.get('address'),
+        property_type: formData.get('property_type'),
+        notes: formData.get('notes'),
+        services: services
+      };
+
+      if (services.length === 0) {
+        errorBox.textContent = 'Please select at least one service.';
+        errorBox.style.display = 'block';
+        return;
+      }
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Sending...';
+
+      try {
+        const res = await fetch('/service-request', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        const data = await res.json();
+
+        if (!res.ok) {
+          throw new Error(data.error || 'Something went wrong.');
+        }
+
+        window.location.href = data.redirect || '/thank-you';
+      } catch (err) {
+        errorBox.textContent = err.message;
+        errorBox.style.display = 'block';
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Submit request →';
+      }
+    });
+  </script>
+
+</body>
+</html>

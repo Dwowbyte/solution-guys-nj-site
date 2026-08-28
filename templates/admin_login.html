@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Login — Solution Guys NJ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@600;700&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{ --ink:#0B0D0A; --paper:#F3EFE1; --gold:#D9A82C; --route:#1F5C3B; --line:#CFC6AE; }
+  *{box-sizing:border-box;}
+  body{
+    margin:0; min-height:100vh; display:flex; align-items:center; justify-content:center;
+    background:var(--ink); color:var(--paper); font-family:'Inter',sans-serif; padding:24px;
+  }
+  .card{ max-width:380px; width:100%; border:2px solid var(--gold); background:var(--paper); color:var(--ink); padding:34px 28px; }
+  h1{ font-family:'Oswald'; font-weight:700; text-transform:uppercase; font-size:20px; margin:0 0 4px; letter-spacing:0.03em; }
+  .sub{ font-family:'IBM Plex Mono'; font-size:11px; color:var(--route); margin-bottom:24px; letter-spacing:0.05em; }
+  label{ display:block; font-family:'IBM Plex Mono'; font-size:10.5px; text-transform:uppercase; letter-spacing:0.06em; color:var(--route); margin-bottom:5px; }
+  input{ width:100%; border:none; border-bottom:2px solid var(--ink); background:transparent; padding:9px 2px; font-family:'Inter'; font-size:14.5px; color:var(--ink); margin-bottom:18px; }
+  input:focus{ outline:none; border-bottom-color:var(--gold); }
+  button{ width:100%; background:var(--ink); color:var(--paper); border:none; padding:13px; font-family:'Oswald'; font-weight:600; font-size:14px; text-transform:uppercase; letter-spacing:0.05em; cursor:pointer; }
+  button:hover{ background:var(--route); }
+  .err{ font-family:'IBM Plex Mono'; font-size:12px; color:#a33; margin-top:12px; display:none; }
+</style>
+</head>
+<body>
+  <div class="card">
+    <h1>Admin access</h1>
+    <div class="sub">SOLUTION GUYS NJ · REQUEST DASHBOARD</div>
+    <form id="login-form">
+      <label for="email">Email</label>
+      <input id="email" name="email" type="email" required>
+      <label for="password">Password</label>
+      <input id="password" name="password" type="password" required>
+      <button type="submit">Log in</button>
+      <div class="err" id="err"></div>
+    </form>
+  </div>
+  <script>
+    const form = document.getElementById('login-form');
+    const err = document.getElementById('err');
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      err.style.display = 'none';
+      const payload = {
+        email: document.getElementById('email').value,
+        password: document.getElementById('password').value
+      };
+      try {
+        const res = await fetch('/admin-login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || 'Login failed');
+        window.location.href = data.redirect;
+      } catch (e2) {
+        err.textContent = e2.message;
+        err.style.display = 'block';
+      }
+    });
+  </script>
+</body>
+</html>
