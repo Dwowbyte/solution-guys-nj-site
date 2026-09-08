@@ -285,6 +285,33 @@ def health():
 # -----------------------------
 # RUN APP
 # -----------------------------
+@app.route("/sitemap.xml")
+def sitemap():
+    pages = [
+        "https://solutionguysnj.com/",
+    ]
+
+    xml = ['<?xml version="1.0" encoding="UTF-8"?>']
+    xml.append('<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">')
+
+    for page in pages:
+        xml.append("<url>")
+        xml.append(f"<loc>{page}</loc>")
+        xml.append("</url>")
+
+    xml.append("</urlset>")
+
+    return "\n".join(xml), 200, {"Content-Type": "application/xml"}
+@app.route("/robots.txt")
+def robots():
+    content = """User-agent: *
+Allow: /
+
+Sitemap: https://solutionguysnj.com/sitemap.xml
+"""
+    return content, 200, {"Content-Type": "text/plain"}
+
+
 if __name__ == "__main__":
     debug_mode = os.environ.get("FLASK_DEBUG", "false").lower() == "true"
     app.run(debug=debug_mode, port=int(os.environ.get("PORT", 5001)))
