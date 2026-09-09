@@ -1,1 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <title>{{ page_title }}</title>
+    <meta name="description" content="{{ meta_description }}">
+    <link rel="canonical" href="{{ canonical_url }}">
+
+    <style>
+        :root{
+            --ink:#0B0D0A;
+            --paper:#F3EFE1;
+            --paper-dim:#E9E3D0;
+            --gold:#D9A82C;
+            --route:#1F5C3B;
+            --rust:#164A30;
+            --line:#CFC6AE;
+        }
+
+        *{
+            box-sizing:border-box;
+        }
+
+        body{
+            margin:0;
+            font-family:Arial, Helvetica, sans-serif;
+            background:var(--paper);
+            color:var(--ink);
+            line-height:1.6;
+        }
+
+        header{
+            background:#111;
+            color:white;
+            border-bottom:3px solid var(--gold);
+            padding:18px 28px;
+        }
+
+        .nav{
+            max-width:1100px;
+            margin:auto;
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            gap:20px;
+            flex-wrap:wrap;
+        }
+
+        .brand{
+            font-size:24px;
+            font-weight:700;
+            letter-spacing:1px;
+        }
+
+        .brand small{
+            display:block;
+            font-size:11px;
+            color:var(--gold);
+            letter-spacing:2px;
+            margin-top:2px;
+        }
+
+        .nav a{
+            color:white;
+            text-decoration:none;
+            margin-left:18px;
+            font-size:14px;
+        }
+
+        .nav a:hover{
+            color:var(--gold);
+        }
+
+        .hero{
+            max-width:1100px;
+            margin:40px auto 20px;
+            padding:50px;
+            border:2px solid var(--line);
+            background:#f8f5eb;
+        }
+
+        .eyebrow{
+            text-transform:uppercase;
+            letter-spacing:2px;
+            font-size:13px;
+            color:var(--route);
+            font-weight:bold;
+        }
+
+        h1{
+            font-size:48px;
+            line-height:1.05;
+            margin:14px 0 20px;
+            max-width:800px;
+        }
+
+        .hero p{
+            font-size:20px;
+            max-width:800px;
+        }
+
+        .cta-row{
+            margin-top:28px;
+            display:flex;
+            gap:14px;
+            flex-wrap:wrap;
+        }
+
+        .btn{
+            display:inline-block;
+            padding:14px 20px;
+            text-decoration:none;
+            font-weight:bold;
+            border:2px solid var(--ink);
+        }
+
+        .btn-primary{
+            background:var(--route);
+            color:white;
+            border-color:var(--route);
+        }
+
+        .btn-secondary{
+            color:var(--ink);
+            background:transparent;
+        }
+
+        .section{
+            max-width:1100px;
+            margin:25px auto;
+            padding:30px 40px;
+        }
+
+        .grid{
+            display:grid;
+            grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+            gap:20px;
+        }
+
+        .card{
+            border:1px solid var(--line);
+            padding:24px;
+            background:#f8f5eb;
+        }
+
+        .card h3{
+            margin-top:0;
+        }
+
+        .service-area{
+            background:var(--route);
+            color:white;
+        }
+
+        .service-area a{
+            color:white;
+        }
+
+        footer{
+            margin-top:40px;
+            padding:28px;
+            background:#111;
+            color:white;
+            text-align:center;
+            border-top:3px solid var(--gold);
+        }
+
+        @media (max-width:700px){
+            h1{
+                font-size:36px;
+            }
+
+            .hero{
+                margin:20px 14px;
+                padding:30px 22px;
+            }
+
+            .section{
+                padding:24px 18px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <div class="nav">
+        <div class="brand">
+            SOLUTION GUYS NJ
+            <small>NEW JERSEY · LICENSED · INSURED</small>
+        </div>
+
+        <nav>
+            <a href="/">Home</a>
+            <a href="/lawn-landscaping">Lawn & Landscaping</a>
+            <a href="/junk-removal">Junk Removal</a>
+            <a href="/commercial-cleaning">Cleaning</a>
+            <a href="/#quote">Get a Quote</a>
+        </nav>
+    </div>
+</header>
+
+<main>
+
+    <section class="hero">
+        <div class="eyebrow">Solution Guys NJ · {{ service_area }}</div>
+
+        <h1>{{ heading }}</h1>
+
+        <p>{{ intro }}</p>
+
+        <div class="cta-row">
+            <a class="btn btn-primary" href="/#quote">Request a Quote</a>
+            <a class="btn btn-secondary" href="tel:+16098456108">Call Solution Guys</a>
+        </div>
+    </section>
+
+    <section class="section">
+        <h2>What We Handle</h2>
+
+        <div class="grid">
+            {% for item in service_items %}
+            <div class="card">
+                <h3>{{ item }}</h3>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    <section class="section">
+        <h2>Why Choose Solution Guys NJ</h2>
+
+        <div class="grid">
+            <div class="card">
+                <h3>Local Service</h3>
+                <p>We serve homeowners, property managers, businesses and contractors throughout Burlington County and nearby South Jersey communities.</p>
+            </div>
+
+            <div class="card">
+                <h3>One Crew, Multiple Solutions</h3>
+                <p>Our goal is to make property maintenance simpler by giving clients one dependable company for multiple property-service needs.</p>
+            </div>
+
+            <div class="card">
+                <h3>Residential & Commercial</h3>
+                <p>We handle one-time projects, recurring maintenance and property turnover work.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section service-area">
+        <h2>Service Area</h2>
+
+        <p>
+            Solution Guys NJ serves Burlington County and nearby South Jersey communities,
+            including Willingboro, Westampton, Moorestown, Mount Laurel, Burlington,
+            Cinnaminson and surrounding areas.
+        </p>
+
+        <p>
+            Looking for {{ service_name }} in your area?
+            <a href="/#quote"><strong>Request a quote here.</strong></a>
+        </p>
+    </section>
+
+    <section class="section">
+        <h2>Other Solution Guys Services</h2>
+
+        <div class="grid">
+            <div class="card">
+                <a href="/lawn-landscaping">Lawn & Landscaping</a>
+            </div>
+
+            <div class="card">
+                <a href="/gutter-cleaning">Gutter Cleaning</a>
+            </div>
+
+            <div class="card">
+                <a href="/junk-removal">Junk Removal</a>
+            </div>
+
+            <div class="card">
+                <a href="/commercial-cleaning">Commercial Cleaning</a>
+            </div>
+
+            <div class="card">
+                <a href="/post-construction-cleaning">Post-Construction Cleaning</a>
+            </div>
+
+            <div class="card">
+                <a href="/fall-cleanup">Fall Cleanup</a>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<footer>
+    © Solution Guys NJ · Property Services in Burlington County, New Jersey
+</footer>
+
+</body>
+</html>
