@@ -129,7 +129,123 @@ def request_to_view(item):
 @app.route("/")
 def home():
     return render_template("index.html", services=SERVICES)
+SERVICE_PAGES = {
+    "lawn-landscaping": {
+        "page_title": "Lawn & Landscaping in Burlington County NJ | Solution Guys NJ",
+        "meta_description": "Lawn care, landscaping, edging, trimming and seasonal property maintenance in Burlington County and nearby South Jersey communities.",
+        "heading": "Lawn & Landscaping Services in Burlington County, NJ",
+        "intro": "Solution Guys NJ provides practical lawn care and landscaping for homeowners, property managers and commercial properties throughout Burlington County.",
+        "service_name": "lawn and landscaping service",
+        "service_area": "Burlington County, NJ",
+        "service_items": [
+            "Lawn mowing",
+            "Edging",
+            "Trimming",
+            "Seasonal cleanup",
+            "Property maintenance",
+            "Landscape cleanup"
+        ]
+    },
 
+    "gutter-cleaning": {
+        "page_title": "Gutter Cleaning in Burlington County NJ | Solution Guys NJ",
+        "meta_description": "Professional gutter cleaning for homes and properties in Burlington County, Willingboro, Westampton and nearby South Jersey communities.",
+        "heading": "Gutter Cleaning in Burlington County, NJ",
+        "intro": "Keep water moving away from your home with gutter cleaning from Solution Guys NJ. We remove leaves, debris and buildup from residential gutter systems.",
+        "service_name": "gutter cleaning",
+        "service_area": "Burlington County, NJ",
+        "service_items": [
+            "Gutter debris removal",
+            "Downspout clearing",
+            "Roofline inspection",
+            "Seasonal gutter maintenance",
+            "Before-and-after assessment",
+            "Gutter guard consultation"
+        ]
+    },
+
+    "junk-removal": {
+        "page_title": "Junk Removal in Burlington County NJ | Solution Guys NJ",
+        "meta_description": "Junk removal for homes, garages, move-outs and property cleanouts in Burlington County and nearby South Jersey areas.",
+        "heading": "Junk Removal in Burlington County, NJ",
+        "intro": "Solution Guys NJ helps homeowners and property managers clear unwanted items from homes, garages and properties.",
+        "service_name": "junk removal",
+        "service_area": "Burlington County, NJ",
+        "service_items": [
+            "Garage cleanouts",
+            "Household junk removal",
+            "Move-out cleanouts",
+            "Property cleanouts",
+            "Furniture removal",
+            "General debris removal"
+        ]
+    },
+
+    "commercial-cleaning": {
+        "page_title": "Commercial Cleaning in Burlington County NJ | Solution Guys NJ",
+        "meta_description": "Commercial and janitorial cleaning services for offices, businesses and managed properties in Burlington County, New Jersey.",
+        "heading": "Commercial Cleaning Services in Burlington County, NJ",
+        "intro": "Solution Guys NJ provides dependable commercial cleaning for businesses, offices, managed properties and recurring service accounts.",
+        "service_name": "commercial cleaning",
+        "service_area": "Burlington County, NJ",
+        "service_items": [
+            "Office cleaning",
+            "Janitorial service",
+            "Common-area cleaning",
+            "Restroom cleaning",
+            "Recurring service",
+            "One-time commercial cleaning"
+        ]
+    },
+
+    "post-construction-cleaning": {
+        "page_title": "Post-Construction Cleaning in Burlington County NJ | Solution Guys NJ",
+        "meta_description": "Post-construction cleaning for contractors, property managers and newly renovated spaces throughout Burlington County and South Jersey.",
+        "heading": "Post-Construction Cleaning in Burlington County, NJ",
+        "intro": "Solution Guys NJ helps prepare newly built and renovated properties for move-in, turnover or final presentation.",
+        "service_name": "post-construction cleaning",
+        "service_area": "Burlington County, NJ",
+        "service_items": [
+            "Construction dust removal",
+            "Floor cleaning",
+            "Kitchen cleaning",
+            "Bathroom cleaning",
+            "Surface wipe-downs",
+            "Final turnover cleaning"
+        ]
+    },
+
+    "fall-cleanup": {
+        "page_title": "Fall Cleanup in Burlington County NJ | Solution Guys NJ",
+        "meta_description": "Fall yard cleanup, leaf removal and seasonal property cleanup in Burlington County, Willingboro, Westampton and nearby communities.",
+        "heading": "Fall Cleanup Services in Burlington County, NJ",
+        "intro": "Prepare your property for colder weather with seasonal cleanup from Solution Guys NJ.",
+        "service_name": "fall cleanup",
+        "service_area": "Burlington County, NJ",
+        "service_items": [
+            "Leaf removal",
+            "Yard debris cleanup",
+            "Final mowing",
+            "Edging",
+            "Garden-bed cleanup",
+            "Seasonal property preparation"
+        ]
+    }
+}
+
+
+@app.route("/<service_slug>")
+def service_page(service_slug):
+    page = SERVICE_PAGES.get(service_slug)
+
+    if page is None:
+        return "Page not found", 404
+
+    return render_template(
+        "service.html",
+        canonical_url=f"https://solutionguysnj.com/{service_slug}",
+        **page
+    )
 
 @app.route("/thank-you")
 def thank_you():
