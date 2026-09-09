@@ -405,6 +405,12 @@ def health():
 def sitemap():
     pages = [
         "https://solutionguysnj.com/",
+        "https://solutionguysnj.com/lawn-landscaping",
+    "https://solutionguysnj.com/gutter-cleaning",
+    "https://solutionguysnj.com/junk-removal",
+    "https://solutionguysnj.com/commercial-cleaning",
+    "https://solutionguysnj.com/post-construction-cleaning",
+    "https://solutionguysnj.com/fall-cleanup",
     ]
 
     xml = ['<?xml version="1.0" encoding="UTF-8"?>']
