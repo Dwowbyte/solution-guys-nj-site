@@ -149,7 +149,7 @@ SERVICE_PAGES = {
 
     "gutter-cleaning": {
         "page_title": "Gutter Cleaning in Burlington County NJ | Solution Guys NJ",
-        "meta_description": "Professional gutter cleaning for homes and properties in Burlington County, Willingboro, Westampton and nearby South Jersey communities.",
+        "meta_description": "Professional gutter cleaning and downspout clearing in Burlington county, Willingboro Westhampton and nearby South jersey communities. Request a quote today.",
         "heading": "Gutter Cleaning in Burlington County, NJ",
         "intro": "Keep water moving away from your home with gutter cleaning from Solution Guys NJ. We remove leaves, debris and buildup from residential gutter systems.",
         "service_name": "gutter cleaning",
