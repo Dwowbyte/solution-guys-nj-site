@@ -155,12 +155,13 @@ SERVICE_PAGES = {
         "service_name": "gutter cleaning",
         "service_area": "Burlington County, NJ",
         "service_items": [
-            "Gutter debris removal",
-            "Downspout clearing",
-            "Roofline inspection",
-            "Seasonal gutter maintenance",
-            "Before-and-after assessment",
-            "Gutter guard consultation"
+    "Gutter cleaning and leaf debris removal",
+    "Downspout cleaning and blockage clearing",
+    "Gutter and roofline visual inspection",
+    "Seasonal fall gutter cleaning",
+    "Before-and-after gutter assessment",
+    "Gutter guard consultation"
+]
         ]
     },
 
