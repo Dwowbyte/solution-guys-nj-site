@@ -162,8 +162,7 @@ SERVICE_PAGES = {
     "Before-and-after gutter assessment",
     "Gutter guard consultation"
 ]
-        ]
-    },
+},
 
     "junk-removal": {
         "page_title": "Junk Removal in Burlington County NJ | Solution Guys NJ",
