@@ -169,6 +169,36 @@
     .gallery-placeholder strong { font-size: 22px; }
     .gallery-placeholder small { color: #dce7d7; }
 
+    
+/* Christmas lighting photo gallery */
+.christmas-gallery-card {
+    background: #ffffff;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    transition: transform 0.3s ease;
+}
+
+.christmas-gallery-card:hover {
+    transform: translateY(-5px);
+}
+
+.christmas-gallery-card img {
+    display: block;
+    width: 100%;
+    height: 240px;
+    object-fit: cover;
+}
+
+.christmas-gallery-card strong {
+    display: block;
+    padding: 18px;
+    color: #102619;
+    font-size: 21px;
+    text-align: center;
+}
+
+
     .faq-item {
       border-bottom: 1px solid #dfe6df;
       padding: 17px 0;
@@ -357,18 +387,27 @@
     <h2>Find your holiday style</h2>
     <p class="section-intro">Design concepts shown below. Actual Solution Guys project photos will be added as installations are completed.</p>
     <div class="grid">
-      <div class="gallery-placeholder">
-        <strong>Classic Warm White</strong>
-        <small>Design concept — image coming soon</small>
-      </div>
-      <div class="gallery-placeholder">
-        <strong>Festive Multicolor</strong>
-        <small>Design concept — image coming soon</small>
-      </div>
-      <div class="gallery-placeholder">
-        <strong>Gold & Green</strong>
-        <small>Design concept — image coming soon</small>
-      </div>
+<div class="christmas-gallery-card">
+    <img src="{{ url_for('static', filename='images/classic-warm-white.jpg') }}"
+         alt="Classic Warm White Christmas Lighting"
+         loading="lazy">
+    <strong>Classic Warm White</strong>
+</div>
+     
+<div class="christmas-gallery-card">
+    <img src="{{ url_for('static', filename='images/festive-multicolor.jpg') }}"
+         alt="Festive Multicolor Christmas Lighting"
+         loading="lazy">
+    <strong>Festive Multicolor</strong>
+</div>
+      
+<div class="christmas-gallery-card">
+    <img src="{{ url_for('static', filename='images/gold-and-green.jpg') }}"
+         alt="Gold and Green Christmas Lighting"
+         loading="lazy">
+    <strong>Gold &amp; Green</strong>
+</div>
+
     </div>
   </div>
 </section>
