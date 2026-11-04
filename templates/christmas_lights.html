@@ -1,0 +1,484 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Christmas Light Installation | Solution Guys NJ</title>
+  <meta name="description" content="Christmas light installation in Willingboro, Moorestown, Delran, Riverton and Burlington County NJ. Custom roofline, tree and holiday lighting. Request a free quote from Solution Guys.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://solutionguysnj.com/christmas-lights">
+  <meta name="theme-color" content="#102619">
+
+  <style>
+    :root {
+      --green: #1faf4b;
+      --dark: #102619;
+      --gold: #e8b943;
+      --cream: #fff9eb;
+      --white: #ffffff;
+      --muted: #657168;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.6;
+      color: #203027;
+      background: white;
+    }
+    a { color: inherit; }
+    img { max-width: 100%; }
+    section { padding: 75px 20px; scroll-margin-top: 85px; }
+    .container { max-width: 1100px; margin: auto; }
+    h1, h2, h3 { line-height: 1.18; }
+    h2 { font-size: clamp(28px, 4vw, 42px); }
+    p { max-width: 750px; }
+
+    header {
+      background: var(--dark);
+      color: white;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 2px solid var(--gold);
+    }
+    .header-inner {
+      max-width: 1200px;
+      margin: auto;
+      padding: 10px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      font-weight: 800;
+    }
+    .brand img {
+      width: 64px;
+      height: 64px;
+      object-fit: contain;
+    }
+    nav { display: flex; align-items: center; gap: 18px; }
+    nav a { text-decoration: none; font-weight: 700; }
+    nav a:hover { color: var(--gold); }
+
+    .btn {
+      display: inline-block;
+      padding: 14px 22px;
+      border-radius: 7px;
+      font-size: 16px;
+      font-weight: 800;
+      text-decoration: none;
+      cursor: pointer;
+      border: 0;
+      text-align: center;
+    }
+    .btn-primary { background: var(--green); color: white; }
+    .btn-gold { background: var(--gold); color: #142117; }
+    .btn:hover { filter: brightness(.94); }
+    .button-row { display: flex; flex-wrap: wrap; gap: 12px; }
+
+    .hero {
+      color: white;
+      background:
+        radial-gradient(circle at 80% 15%, #32653c 0, transparent 40%),
+        linear-gradient(135deg, #09170f, #173923);
+      padding: 100px 20px;
+    }
+    .eyebrow {
+      color: var(--gold);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-weight: 800;
+    }
+    .hero h1 {
+      max-width: 850px;
+      font-size: clamp(38px, 6vw, 70px);
+      margin: 16px 0;
+    }
+    .hero h1 em { color: var(--gold); }
+    .hero p { font-size: 19px; color: #e5eee6; }
+    .hero .button-row { margin-top: 30px; }
+
+    .light-section { background: var(--cream); }
+    .section-intro { color: var(--muted); margin-bottom: 35px; }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 20px;
+    }
+    .card {
+      padding: 26px;
+      border: 1px solid #e3e8e1;
+      border-radius: 12px;
+      background: white;
+      box-shadow: 0 5px 20px rgba(0,0,0,.035);
+    }
+    .card h3 { color: #145a2c; font-size: 22px; }
+    .card.featured {
+      border: 2px solid var(--gold);
+      background: #fffdf6;
+    }
+    .tag {
+      display: inline-block;
+      padding: 5px 10px;
+      background: var(--gold);
+      border-radius: 5px;
+      font-size: 12px;
+      font-weight: 800;
+    }
+    .card ul { padding-left: 20px; }
+    .card li { margin-bottom: 9px; }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 16px;
+    }
+    .step-number {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: var(--dark);
+      color: var(--gold);
+      font-weight: 800;
+    }
+
+    .gallery-placeholder {
+      min-height: 190px;
+      padding: 25px;
+      background: linear-gradient(140deg, #142d1c, #35633c);
+      border-radius: 10px;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: end;
+    }
+    .gallery-placeholder strong { font-size: 22px; }
+    .gallery-placeholder small { color: #dce7d7; }
+
+    .faq-item {
+      border-bottom: 1px solid #dfe6df;
+      padding: 17px 0;
+    }
+    .faq-item h3 { margin-bottom: 5px; }
+
+    .quote-section {
+      background: var(--dark);
+      color: white;
+    }
+    .quote-section h2 { color: var(--gold); }
+    .quote-form {
+      background: white;
+      color: #203027;
+      padding: 30px;
+      border-radius: 12px;
+      max-width: 760px;
+    }
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+    .form-field { margin-bottom: 18px; }
+    .form-field label {
+      display: block;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    input:not([type="checkbox"]),
+    select, textarea {
+      display: block;
+      width: 100%;
+      padding: 13px;
+      border: 1px solid #aebbb1;
+      border-radius: 6px;
+      font: inherit;
+    }
+    textarea { min-height: 100px; }
+    fieldset {
+      border: 1px solid #d4ddd4;
+      border-radius: 8px;
+      padding: 15px;
+      margin-bottom: 20px;
+    }
+    legend { font-weight: 800; }
+    .check-option {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 10px 0;
+      cursor: pointer;
+    }
+    input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+      accent-color: var(--green);
+    }
+    .check-option span { line-height: 1.4; }
+    .fine-print { font-size: 13px; color: #5d6c61; }
+
+    footer {
+      background: #08140d;
+      color: white;
+      padding: 45px 20px;
+      text-align: center;
+    }
+    footer a { color: var(--gold); }
+
+    @media (max-width: 850px) {
+      .grid { grid-template-columns: 1fr 1fr; }
+      .steps { grid-template-columns: 1fr 1fr; }
+      .header-inner { flex-direction: column; }
+      nav { flex-wrap: wrap; justify-content: center; }
+    }
+    @media (max-width: 560px) {
+      .grid, .steps, .form-grid { grid-template-columns: 1fr; }
+      .hero { padding: 70px 20px; }
+      section { padding: 55px 18px; }
+      .quote-form { padding: 20px; }
+      .brand img { width: 48px; height: 48px; }
+      nav { gap: 12px; font-size: 13px; }
+      .button-row .btn { width: 100%; }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="header-inner">
+    <a class="brand" href="/">
+      <img src="{{ url_for('static', filename='sg-logo.jpg') }}"
+           alt="Solution Guys official logo">
+      <span>SOLUTION GUYS NJ</span>
+    </a>
+    <nav aria-label="Main navigation">
+      <a href="#packages">Packages</a>
+      <a href="#how">How It Works</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#faq">FAQ</a>
+      <a class="btn btn-gold" href="#quote">Free Quote</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<section class="hero">
+  <div class="container">
+    <div class="eyebrow">Burlington County • Holiday Season 2026</div>
+    <h1>Christmas lights, <em>hung and handled.</em></h1>
+    <p>Bring the magic home. Solution Guys designs and installs beautiful holiday lighting for homes across Burlington County, New Jersey.</p>
+    <p>From your first measurement to your final holiday display, we'll help you create a look that fits your home and budget.</p>
+    <div class="button-row">
+      <a class="btn btn-primary" href="#quote">Get My Free Quote</a>
+      <a class="btn btn-gold" href="#packages">Explore Packages</a>
+    </div>
+    <p>Prefer to talk? <a href="tel:+16098456108">Call 609-845-6108</a></p>
+  </div>
+</section>
+
+<section id="packages" class="light-section">
+  <div class="container">
+    <h2>Choose your holiday glow</h2>
+    <p class="section-intro">Three starting points. Every display is customized to your property, with a written quote before work begins.</p>
+    <div class="grid">
+      <article class="card">
+        <h3>Essential Roofline</h3>
+        <p>Simple. Elegant. Holiday-ready.</p>
+        <ul>
+          <li>Front-facing roofline lighting</li>
+          <li>Color selection</li>
+          <li>Custom measurement</li>
+          <li>Professional installation</li>
+        </ul>
+        <p><strong>Custom quote</strong></p>
+        <a class="btn btn-primary" href="#quote">Request This Package</a>
+      </article>
+      <article class="card featured">
+        <span class="tag">FEATURED PACKAGE</span>
+        <h3>Signature Holiday</h3>
+        <p>Make your home stand out.</p>
+        <ul>
+          <li>Roofline and peak lighting</li>
+          <li>Selected porch or column accents</li>
+          <li>Personalized lighting design</li>
+          <li>Professional installation</li>
+        </ul>
+        <p><strong>Custom quote</strong></p>
+        <a class="btn btn-primary" href="#quote">Request This Package</a>
+      </article>
+      <article class="card">
+        <h3>Complete Holiday Display</h3>
+        <p>Turn your home into a holiday showcase.</p>
+        <ul>
+          <li>Rooflines and architectural accents</li>
+          <li>Selected trees and shrubs</li>
+          <li>Walkway or entrance lighting</li>
+          <li>Customized display design</li>
+        </ul>
+        <p><strong>Custom quote</strong></p>
+        <a class="btn btn-primary" href="#quote">Request This Package</a>
+      </article>
+    </div>
+    <p class="fine-print">Final scope, materials, takedown, storage and pricing will be specified in your written proposal.</p>
+  </div>
+</section>
+
+<section id="how">
+  <div class="container">
+    <h2>From first measure to final glow</h2>
+    <p class="section-intro">A straightforward process designed around your home.</p>
+    <div class="steps">
+      <div><span class="step-number">1</span><h3>Request</h3><p>Tell us about your property and preferred lighting.</p></div>
+      <div><span class="step-number">2</span><h3>Measure</h3><p>We review the property and measure the proposed areas.</p></div>
+      <div><span class="step-number">3</span><h3>Design</h3><p>Review the lighting plan and written quote.</p></div>
+      <div><span class="step-number">4</span><h3>Install</h3><p>Our crew installs and tests the approved display.</p></div>
+      <div><span class="step-number">5</span><h3>Takedown</h3><p>Post-holiday removal can be arranged in your proposal.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="gallery" class="light-section">
+  <div class="container">
+    <h2>Find your holiday style</h2>
+    <p class="section-intro">Design concepts shown below. Actual Solution Guys project photos will be added as installations are completed.</p>
+    <div class="grid">
+      <div class="gallery-placeholder">
+        <strong>Classic Warm White</strong>
+        <small>Design concept — image coming soon</small>
+      </div>
+      <div class="gallery-placeholder">
+        <strong>Festive Multicolor</strong>
+        <small>Design concept — image coming soon</small>
+      </div>
+      <div class="gallery-placeholder">
+        <strong>Gold & Green</strong>
+        <small>Design concept — image coming soon</small>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="container">
+    <h2>Frequently asked questions</h2>
+    <div class="faq-item"><h3>How much does installation cost?</h3><p>Pricing depends on your property's measurements, lighting design, materials and installation requirements. We provide a custom quote.</p></div>
+    <div class="faq-item"><h3>Can I choose my colors?</h3><p>Yes. Tell us your preferred colors when requesting a quote. Available options will be confirmed during design.</p></div>
+    <div class="faq-item"><h3>Do you remove the lights after the holidays?</h3><p>Post-holiday takedown can be included in your written proposal.</p></div>
+    <div class="faq-item"><h3>What areas do you serve?</h3><p>We focus on Burlington County, including Willingboro, Moorestown, Delran, Riverton, Westampton and surrounding communities.</p></div>
+    <div class="faq-item"><h3>When should I book?</h3><p>Request your quote early so we can discuss available installation dates.</p></div>
+  </div>
+</section>
+
+<section id="quote" class="quote-section">
+  <div class="container">
+    <h2>Make your home shine this Christmas</h2>
+    <p>Tell us what you're imagining. We'll contact you about your free quote.</p>
+
+    <!-- Requires a Flask POST route at /christmas-lights/quote -->
+    <form class="quote-form" method="POST" action="/christmas-lights/quote">
+      <input type="hidden" name="service" value="Christmas Light Installation">
+      <input type="hidden" name="source" value="Christmas Lights Landing Page">
+
+      <div class="form-grid">
+        <div class="form-field">
+          <label for="name">Full name *</label>
+          <input id="name" name="name" type="text" autocomplete="name" maxlength="120" required>
+        </div>
+        <div class="form-field">
+          <label for="phone">Phone number *</label>
+          <input id="phone" name="phone" type="tel" autocomplete="tel" maxlength="30" required>
+        </div>
+        <div class="form-field">
+          <label for="email">Email address</label>
+          <input id="email" name="email" type="email" autocomplete="email" maxlength="254">
+        </div>
+        <div class="form-field">
+          <label for="town">Town or ZIP code *</label>
+          <input id="town" name="town" type="text" maxlength="100" required>
+        </div>
+        <div class="form-field">
+          <label for="stories">Number of stories</label>
+          <select id="stories" name="stories">
+            <option value="">Select</option>
+            <option value="1">One story</option>
+            <option value="2">Two stories</option>
+            <option value="3+">Three or more</option>
+          </select>
+        </div>
+        <div class="form-field">
+          <label for="style">Preferred lighting style</label>
+          <select id="style" name="style">
+            <option value="">Choose a style</option>
+            <option>Warm white</option>
+            <option>Multicolor</option>
+            <option>Candy cane</option>
+            <option>Gold and green</option>
+            <option>Not sure yet</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-field">
+        <label for="package">Preferred package</label>
+        <select id="package" name="package">
+          <option value="">Help me choose</option>
+          <option>Essential Roofline</option>
+          <option>Signature Holiday</option>
+          <option>Complete Holiday Display</option>
+        </select>
+      </div>
+
+      <fieldset>
+        <legend>What would you like illuminated?</legend>
+        <label class="check-option"><input type="checkbox" name="lighting_areas" value="Roofline"><span>Roofline and peaks</span></label>
+        <label class="check-option"><input type="checkbox" name="lighting_areas" value="Trees"><span>Trees</span></label>
+        <label class="check-option"><input type="checkbox" name="lighting_areas" value="Shrubs"><span>Shrubs and landscaping</span></label>
+        <label class="check-option"><input type="checkbox" name="lighting_areas" value="Columns"><span>Columns and railings</span></label>
+        <label class="check-option"><input type="checkbox" name="lighting_areas" value="Walkways"><span>Walkways and driveway</span></label>
+        <label class="check-option"><input type="checkbox" name="lighting_areas" value="Wreaths"><span>Wreaths and decorative accents</span></label>
+      </fieldset>
+
+      <div class="form-field">
+        <label for="notes">Tell us about your project</label>
+        <textarea id="notes" name="notes" maxlength="2000" placeholder="Describe your home, preferred dates or lighting ideas."></textarea>
+      </div>
+
+      <label class="check-option">
+        <input type="checkbox" name="contact_consent" value="yes" required>
+        <span>I agree to be contacted by Solution Guys about my quote request.</span>
+      </label>
+
+      <p class="fine-print">Submitting a request does not confirm an installation appointment. Your information will be used to respond to your inquiry.</p>
+      <button class="btn btn-primary" type="submit">Request My Free Quote</button>
+    </form>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="container">
+    <h3>Solution Guys NJ</h3>
+    <p style="margin-left:auto;margin-right:auto;">Christmas Light Installation • Burlington County, New Jersey</p>
+    <p><a href="tel:+16098456108">609-845-6108</a></p>
+    <p><a href="/">Return to Solution Guys Homepage</a></p>
+    <p>© 2026 Solution Guys. All rights reserved.</p>
+  </div>
+</footer>
+
+</body>
+</html>
