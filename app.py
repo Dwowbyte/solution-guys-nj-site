@@ -129,6 +129,12 @@ def request_to_view(item):
 @app.route("/")
 def home():
     return render_template("index.html", services=SERVICES)
+
+@app.route("/christmas-lights")
+def christmas_lights():
+    return render_template("christmas_lights.html")
+
+
 SERVICE_PAGES = {
     "lawn-landscaping": {
         "page_title": "Lawn & Landscaping in Burlington County NJ | Solution Guys NJ",
