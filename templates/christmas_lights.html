@@ -86,13 +86,21 @@
     .btn:hover { filter: brightness(.94); }
     .button-row { display: flex; flex-wrap: wrap; gap: 12px; }
 
-    .hero {
-      color: white;
-      background:
-        radial-gradient(circle at 80% 15%, #32653c 0, transparent 40%),
-        linear-gradient(135deg, #09170f, #173923);
-      padding: 100px 20px;
-    }
+    
+.hero {
+    color: white;
+    background:
+        linear-gradient(
+            rgba(8, 29, 17, 0.60),
+            rgba(8, 29, 17, 0.78)
+        ),
+        url("{{ url_for('static', filename='images/christmas-hero.jpg') }}");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    padding: 100px 20px;
+}
+
     .eyebrow {
       color: var(--gold);
       text-transform: uppercase;
