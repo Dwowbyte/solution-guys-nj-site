@@ -258,6 +258,42 @@ def thank_you():
     return render_template("thank_you.html")
 
 
+@app.route("/christmas-lights/quote", methods=["POST"])
+def christmas_lights_quote():
+    form = request.form
+
+    name = form.get("name", "").strip()
+    phone = form.get("phone", "").strip()
+
+    if not name or not phone or form.get("contact_consent") != "yes":
+        return "Name, phone, and consent are required.", 400
+
+    lighting_details = {
+        "service": "Christmas Light Installation",
+        "source": form.get("source", ""),
+        "zip_code": form.get("zip", ""),
+        "stories": form.get("stories", ""),
+        "style": form.get("style", ""),
+        "package": form.get("package", ""),
+        "lighting_areas": form.getlist("lighting_areas"),
+    }
+
+    item = ServiceRequest(
+        name=name,
+        phone=phone,
+        email=form.get("email", "").strip(),
+        address=form.get("zip", "").strip(),
+        property_type="Residential",
+        services_json=json.dumps(lighting_details),
+        notes=form.get("notes", "").strip(),
+        status="New",
+    )
+
+    db.session.add(item)
+    db.session.commit()
+
+    return redirect(url_for("thank_you"))
+
 @app.route("/service-request", methods=["POST"])
 def service_request():
     """Receive a quote request and store it safely in the database."""
